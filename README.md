@@ -10,11 +10,11 @@ manera eficiente. Los administradores tendrán acceso a funcionalidades
 específicas para la gestión de empleados y generación de reportes clave.
 
 ## Tecnologías a utilizar
-Front: HTML5, Bootstrap, Blade, Java Script, JQuery
-Back: PHP > 8, Laravel 11
-Base de datos: MySql
-Arquitectura: M (modelo) V (vista) C (controlador), monolítico
-Plugins front: Sweet Alert 2, Select2, JQuery Data Tables, Laravel AdminLTE
-Plugins back: Laravel fortify, Laravel Spreadsheet
+-Front: HTML5, Bootstrap, Blade, Java Script, JQuery
+-Back: PHP > 8, Laravel 11
+-Base de datos: MySql
+-Arquitectura: M (modelo) V (vista) C (controlador), monolítico
+-Plugins front: Sweet Alert 2, Select2, JQuery Data Tables, Laravel AdminLTE
+-Plugins back: Laravel fortify, Laravel Spreadsheet
 
 
