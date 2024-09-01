@@ -316,11 +316,16 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
+            'text' => 'home',
+            'url' => 'home',
+            'icon' => 'fas fa-fw fa-home',
             'label' => 4,
             'label_color' => 'success',
+        ],
+        [
+            'text' => 'Mis envios',
+            'route' => 'envios.index',
+            'icon' => 'fas fa-fw fa-paper-plane',
         ],
         ['header' => 'account_settings'],
         [
@@ -333,70 +338,28 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'ADMINISTRAR CLIENTES'],
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
+            'text' => 'Cliente',
+            'route' => 'clientes.index',
+            'icon' => 'fas fa-fw fa-user',
         ],
-        ['header' => 'labels'],
+        ['header' => 'ADMINISTRAR EMPLEADOS'],
         [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text' => 'Empleados',
+            'route' => 'empleados.index',
+            'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'ADMINISTRATIVO'],
         [
             'text' => 'Usuarios',
-           // 'route'  => 'admin.usuarios.index',
+            'route'  => 'usuarios.index',
             'icon' => 'fas fa-fw fa-users',
        //     'can' => 'admin.usuarios.index'
         ],
         [
             'text' => 'Roles',
-        //    'route'  => 'admin.roles.index',
+            'route'  => 'roles.index',
             'icon' => 'fas fa-fw fa-users-cog',
       //      'can' => 'admin.roles.index'
         ],

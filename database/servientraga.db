@@ -1,0 +1,184 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema servientraga_db
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema servientraga_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `servientraga_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+USE `servientraga_db` ;
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`usuarios` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `estado` INT NOT NULL,
+  `roles_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_usuarios_roles1`
+    FOREIGN KEY (`roles_id`)
+    REFERENCES `servientraga_db`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`permisos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`permisos` (
+  `id` INT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`rol_permisos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`rol_permisos` (
+  `permisos_id` INT NOT NULL,
+  `roles_id` INT(11) NOT NULL,
+  PRIMARY KEY (`permisos_id`, `roles_id`),
+  CONSTRAINT `fk_permisos_has_roles_permisos1`
+    FOREIGN KEY (`permisos_id`)
+    REFERENCES `servientraga_db`.`permisos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permisos_has_roles_roles1`
+    FOREIGN KEY (`roles_id`)
+    REFERENCES `servientraga_db`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`empleados`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`empleados` (
+  `idempleados` INT NOT NULL AUTO_INCREMENT,
+  `cedula` VARCHAR(45) NULL,
+  `nombres` VARCHAR(45) NULL,
+  `apellidos` VARCHAR(45) NULL,
+  `cargo` VARCHAR(45) NULL,
+  `usuarios_id` INT(11) NOT NULL,
+  PRIMARY KEY (`idempleados`),
+  CONSTRAINT `fk_empleados_usuarios1`
+    FOREIGN KEY (`usuarios_id`)
+    REFERENCES `servientraga_db`.`usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`clientes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`clientes` (
+  `idclientes` INT NOT NULL AUTO_INCREMENT,
+  `cedula` VARCHAR(45) NOT NULL,
+  `telefono` VARCHAR(45) NOT NULL,
+  `direccion` VARCHAR(45) NULL,
+  `usuarios_id` INT(11) NULL,
+  `nombres` VARCHAR(45) NULL,
+  `apellidos` VARCHAR(45) NULL,
+  PRIMARY KEY (`idclientes`),
+  CONSTRAINT `fk_clientes_usuarios1`
+    FOREIGN KEY (`usuarios_id`)
+    REFERENCES `servientraga_db`.`usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`envios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`envios` (
+  `idenvios` INT NOT NULL AUTO_INCREMENT,
+  `origen` VARCHAR(45) NOT NULL,
+  `destino` VARCHAR(45) NOT NULL,
+  `detalle` VARCHAR(45) NOT NULL,
+  `empleados_idempleados` INT NOT NULL,
+  `codigo_envio` VARCHAR(45) NULL,
+  `estado` ENUM('pendiente', 'en tránsito', 'entregado') NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  `clientes_idremitente` INT NOT NULL,
+  `clientes_iddestinatario` INT NOT NULL,
+  PRIMARY KEY (`idenvios`),
+  CONSTRAINT `fk_envios_empleados1`
+    FOREIGN KEY (`empleados_idempleados`)
+    REFERENCES `servientraga_db`.`empleados` (`idempleados`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_envios_clientes1`
+    FOREIGN KEY (`clientes_idremitente`)
+    REFERENCES `servientraga_db`.`clientes` (`idclientes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_envios_clientes2`
+    FOREIGN KEY (`clientes_iddestinatario`)
+    REFERENCES `servientraga_db`.`clientes` (`idclientes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `servientraga_db`.`envios_detalles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `servientraga_db`.`envios_detalles` (
+  `idenvios_detalles` INT NOT NULL AUTO_INCREMENT,
+  `peso` DOUBLE NULL,
+  `alto` DOUBLE NULL,
+  `ancho` DOUBLE NULL,
+  `profundidad` DOUBLE NULL,
+  `cantidad` DOUBLE NULL,
+  `volumen` DOUBLE NULL,
+  `valor_unidad` DOUBLE NULL,
+  `valor_total` DOUBLE NOT NULL,
+  `unidad_peso` VARCHAR(45) NULL,
+  `unidad_medidas` VARCHAR(45) NULL,
+  `unidad_cantidades` VARCHAR(45) NULL,
+  `envios_idenvios` INT NOT NULL,
+  PRIMARY KEY (`idenvios_detalles`),
+  CONSTRAINT `fk_usuarios_has_envios_envios1`
+    FOREIGN KEY (`envios_idenvios`)
+    REFERENCES `servientraga_db`.`envios` (`idenvios`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
