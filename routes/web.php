@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
+Route::resource('/clientes', ClientesController::class)->names('clientes');
 
 Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados.index');
 
