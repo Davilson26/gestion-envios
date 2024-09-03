@@ -27,6 +27,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">Id</th>
+                            <th class="text-center">Cedula</th>
                             <th class="text-center">Nombre</th>
                             <th class="text-center">Apellido</th>
                             <th class="text-center">Correo</th>
@@ -39,17 +40,18 @@
                         @foreach ($clientes as $cliente)
                         <tr>
                             <td class="text-center">{{ $cliente->id }}</td>
+                            <td class="text-center">{{ $cliente->cedula }}</td>
                             <td class="text-center">{{ $cliente->nombres }}</td>
                             <td class="text-center">{{ $cliente->apellidos }}</td>
-                            <td class="text-center">{{ $cliente->correo }}</td>
+                            <td class="text-center">{{ $cliente->user->email }}</td>
                             <td class="text-center">{{ $cliente->telefono }}</td>
                             <td class="text-center">{{ $cliente->direccion }}</td>
                             <td class="text-center">
-                                <a href="{{ route('clientes.edit', $cliente) }}" class="text-blue-600 hover:text-blue-900">Editar</a>
-                                <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" class="inline-block">
+                                <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('clientes.edit', $cliente) }}"></a>
+                                <form action="{{ route('clientes.destroy', $cliente->id) }}" class="form-delete" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
+                                    <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
                                 </form>
                             </td>
                         </tr>

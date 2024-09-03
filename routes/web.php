@@ -16,6 +16,11 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// Route::group(['middleware' => 'checkRole:clientes'], function () {
+// Route::get('/envios', [EnviosController::class, 'index'])->name('envios.index');
+// });
+
+
 Route::resource('/clientes', ClientesController::class)->names('clientes');
 
 Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados.index');

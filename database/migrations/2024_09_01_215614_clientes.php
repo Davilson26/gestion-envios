@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clietes', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula');
-            $table->string('nombres');
-            $table->string('apellidos');
-            $table->string('telefono');
-            $table->string('direccion');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->string('cedula', 45)->nullable();
+            $table->string('nombres', 45)->nullable();
+            $table->string('apellidos', 45)->nullable();
+            $table->string('telefono', 45)->nullable();
+            $table->integer('estado')->default(1);
+            $table->string('direccion', 45)->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
         });
     }

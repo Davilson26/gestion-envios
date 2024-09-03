@@ -23,22 +23,22 @@
 
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $cliente->nombre ?? '' }}" required>
+                    <input type="text" class="form-control text-center" id="nombre" name="nombre" value="{{ $cliente->nombres ?? '' }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="apellido">Apellido</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido" value="{{ $cliente->apellido ?? '' }}" required>
+                    <input type="text" class="form-control text-center" id="apellido" name="apellido" value="{{ $cliente->apellidos ?? '' }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" name="correo" value="{{ $cliente->correo ?? '' }}" required>
+                    <input type="email" class="form-control text-center" id="correo" name="correo" value="{{ $cliente->correo ?? '' }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" value="{{ $cliente->telefono ?? '' }}" required>
+                    <input type="text" class="form-control text-center" id="telefono" name="telefono" value="{{ $cliente->telefono ?? '' }}" required>
                 </div>
 
                 <div class="form-group">

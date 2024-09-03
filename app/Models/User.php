@@ -10,8 +10,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
-
     protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -22,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'rol_id',
+        'rol_id'
     ];
 
     /**
@@ -47,4 +45,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * The attributes that should be use to validate.
+     *
+     * @var array<int, string>
+     */
+    public function roles()
+    {
+        return $this->belongsTo(Roles::class, 'rol_id');
+    }
+
+    // Relación con Cliente
+    public function clientes()
+    {
+        return $this->hasMany(Clientes::class, 'user_id');
+    }
+
+    // Relación con Empleado
+    public function empleados()
+    {
+        return $this->hasMany(Empleados::class, 'user_id');
+    }
+
 }

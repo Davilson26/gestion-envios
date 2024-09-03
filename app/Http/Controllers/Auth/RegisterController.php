@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clientes;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -63,10 +64,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Crear el usuario y obtener el modelo del usuario creado
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'rol_id' => $data['rol_id'],
         ]);
+
+        // Crear un registro en la tabla clientes usando el ID del usuario creado
+        Clientes::create([
+            'nombres' => $data['name'],
+            'user_id' => $user->id,
+        ]);
+
+        return $user;
     }
 }

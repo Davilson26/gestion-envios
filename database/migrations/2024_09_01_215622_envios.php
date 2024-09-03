@@ -13,31 +13,14 @@ return new class extends Migration
     {
         Schema::create('envios', function (Blueprint $table) {
             $table->id();
-            $table->string('origen');
-            $table->string('destino');
+            $table->string('origen', 45);
+            $table->string('destino', 45);
             $table->longText('descripcion');
-            $table->string('codigo_envio');
+            $table->string('codigo_envio', 45)->nullable();
             $table->integer('estado');
-
-            $table->bigInteger('empleados_idempleados')->unsigned();
-            $table->bigInteger('clientes_idremitente')->unsigned();
-            $table->bigInteger('clientes_iddestinatario')->unsigned();
-
-            $table->foreign('empleados_idempleados')
-                ->references('id')
-                ->on('empleados')
-                ->onDelete('no action');
-
-            $table->foreign('clientes_idremitente')
-                ->references('id')
-                ->on('clientes')
-                ->onDelete('no action');
-
-            $table->foreign('clientes_iddestinatario')
-                ->references('id')
-                ->on('clientes')
-                ->onDelete('no action');
-
+            $table->foreignId('empleados_idempleados')->constrained('empleados')->onDelete('no action')->onUpdate('no action');
+            $table->foreignId('clientes_idremitente')->constrained('clientes')->onDelete('no action')->onUpdate('no action');
+            $table->foreignId('clientes_iddestinatario')->constrained('clientes')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
         });
     }

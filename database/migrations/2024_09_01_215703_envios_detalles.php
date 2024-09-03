@@ -13,22 +13,18 @@ return new class extends Migration
     {
         Schema::create('envios_detalles', function (Blueprint $table) {
             $table->id();
-            $table->string('peso');
-            $table->string('alto');
-            $table->string('ancho');
-            $table->string('profundidad');
-            $table->string('cantidad');
-            $table->string('volumen');
-            $table->string('valoru');
-            $table->string('total');
-            $table->string('unidad_peso');
-            $table->string('unidad_medidas');
-            $table->string('unidad_cantidades');
-            $table->bigInteger('envio_id')->unsigned();
-            $table->foreign('envio_id')
-                ->references('id')
-                ->on('envios')
-                ->onDelete('cascade');
+            $table->double('peso')->nullable();
+            $table->double('alto')->nullable();
+            $table->double('ancho')->nullable();
+            $table->double('profundidad')->nullable();
+            $table->double('cantidad')->nullable();
+            $table->double('volumen')->nullable();
+            $table->double('valor_unidad')->nullable();
+            $table->double('valor_total');
+            $table->string('unidad_peso', 45)->nullable();
+            $table->string('unidad_medidas', 45)->nullable();
+            $table->string('unidad_cantidades', 45)->nullable();
+            $table->foreignId('envios_idenvios')->constrained('envios')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
         });
     }

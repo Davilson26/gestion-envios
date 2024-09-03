@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Empleados extends Model
 {
     use HasFactory;
+
+    // Relación con User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

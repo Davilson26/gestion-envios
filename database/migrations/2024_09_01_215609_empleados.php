@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula');
-            $table->string('nombres');
-            $table->string('apellidos');
-            $table->string('cargos');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+            $table->string('cedula', 45);
+            $table->string('nombres', 45);
+            $table->string('apellidos', 45);
+            $table->string('cargo', 45);
+            $table->integer('estado');
+            $table->foreignId('user_id')
+                    ->constrained('users')
+                    ->onDelete('no action')
+                    ->onUpdate('no action');
             $table->timestamps();
         });
 

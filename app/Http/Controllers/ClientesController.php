@@ -8,12 +8,20 @@ use Illuminate\Http\Request;
 
 class ClientesController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('can:admin.cargos.index')->only('index');
+    //     $this->middleware('can:admin.cargos.store')->only('store');
+    //     $this->middleware('can:admin.cargos.edit')->only('edit', 'update');
+    //     $this->middleware('can:admin.cargos.destroy')->only('destroy');
+    // }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-      $clientes = Clientes::all();
+      $clientes = Clientes::with('user')->get();
       return view('clientes.index', compact('clientes'));
     }
 
@@ -39,7 +47,7 @@ class ClientesController extends Controller
         //     'password' => 'required|string|max:255',
         //     'id_rol' => 'required|integer'
         // ]);
-        
+
         $data = $request->all();
         $user['name'] = $data['nombres'];
         $user['email'] = $data['correo'];
@@ -69,7 +77,7 @@ class ClientesController extends Controller
      */
     public function edit(Clientes $cliente)
     {
-        return view('clientes.editar', compact('cliente'));
+        return view('clientes.edit', compact('cliente'));
     }
 
     /**
@@ -98,6 +106,6 @@ class ClientesController extends Controller
         $cliente->delete();
 
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
-    
+
     }
 }
