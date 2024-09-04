@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Clientes;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ClientesController extends Controller
 {
@@ -47,20 +48,24 @@ class ClientesController extends Controller
         //     'password' => 'required|string|max:255',
         //     'id_rol' => 'required|integer'
         // ]);
-
         $data = $request->all();
-        $user['name'] = $data['nombres'];
-        $user['email'] = $data['correo'];
-        $user['password'] = bcrypt($request->password);
-        $user['rol_id'] = $data['rol_id'];
-        // dd($user)  ;
-        $user = User::create($data);
-
-        $idUser = $user->id;
-        $data['usuarios_id'] = $idUser;
-
-        Clientes::create($data);
-
+        // Crear un registro en la tabla clientes usando el ID del usuario creado
+        $user = User::create([
+            'name' => $data['nombres'],
+            'email' => $data['correo'],
+            'password' => Hash::make($data['password']),
+            'rol_id' => 3,
+        ]);
+        // Crear el usuario y obtener el modelo del usuario creado
+        Clientes::create([
+            'cedula' => $data['cedula'],
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
+            'telefono' => $data['telefono'],
+            'direccion' => $data['direccion'],
+            'user_id' => $user->id,
+        ]);
+        
         return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
     }
 

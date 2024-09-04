@@ -36,6 +36,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="correo">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
                     <label for="telefono">Teléfono</label>
                     <input type="text" class="form-control" id="telefono" name="telefono" required>
                 </div>
@@ -44,9 +49,6 @@
                     <label for="direccion">Dirección</label>
                     <input type="text" class="form-control" id="direccion" name="direccion" required>
                 </div>
-
-                <!-- Campo oculto para rol_id -->
-                <input type="hidden" name="rol_id" value="3">
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
