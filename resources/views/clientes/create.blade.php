@@ -21,12 +21,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
+                    <label for="nombres">Nombre</label>
                     <input type="text" class="form-control" id="nombres" name="nombres" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="apellido">Apellido</label>
+                    <label for="apellidos">Apellido</label>
                     <input type="text" class="form-control" id="apellidos" name="apellidos" required>
                 </div>
 

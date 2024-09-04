@@ -81,27 +81,53 @@ class ClientesController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Clientes $cliente)
-    {
-        return view('clientes.edit', compact('cliente'));
-    }
+{
+    // Obtener el usuario asociado al cliente
+    $user = User::find($cliente->user_id);
+
+    // Pasar tanto el cliente como el usuario a la vista de edición
+    return view('clientes.edit', compact('cliente', 'user'));
+}
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Clientes $cliente)
     {
-        // $request->validate([
-        //     'nombre' => 'required|string|max:255',
-        //     'apellido' => 'required|string|max:255',
-        //     'correo' => 'required|string|email|max:255',
-        //     'telefono' => 'required|string|max:255',
-        //     'direccion' => 'required|string|max:255',
-        // ]);
-
-        $cliente->update($request->all());
-
-        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
+        // Validación de los datos recibidos
+        $request->validate([
+            'nombres' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'correo' => 'required|string|email|max:255',
+            'telefono' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+    
+        // Actualizar los datos del usuario asociado
+        $user = User::find($cliente->user_id);
+        $user->name = $request->nombres;
+        $user->email = $request->correo;
+    
+        // Solo actualizar la contraseña si se proporciona una nueva
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+    
+        $user->save();
+    
+        // Actualizar los datos del cliente
+        $cliente->update([
+            'nombres' => $request->nombres,
+            'apellidos' => $request->apellidos,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+        ]);
+    
+        return redirect()->route('clientes.update')->with('success', 'Cliente actualizado exitosamente.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

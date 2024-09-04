@@ -13,10 +13,11 @@
             <h1 class="text-xl font-bold">Lista de Envios</h1>
             <div>
                 <a href="{{ route('clientes.create') }}" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">CREAR NUEVO CLIENTE</a>
+            
             </div>
         </div>
         <div class="card-body">
-
+            
             @if (session('info'))
                 <div class="alert alert-success">
                     <strong>{{ session('info') }}</strong>
@@ -36,6 +37,7 @@
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         @foreach ($clientes as $cliente)
                         <tr>
@@ -53,11 +55,25 @@
                                     @method('DELETE')
                                     <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
                                 </form>
+                               
+
                             </td>
                         </tr>
+                        
                         @endforeach
                     </tbody>
+                     <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+                                 @csrf
+                                 @method('PUT')
+
+                                <!-- Campos del formulario aquí (nombres, apellidos, etc.) -->
+
+                                    <button type="submit" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">
+                                    Actualizar Cliente
+                                    </button>
+                                    </form>
                 </table>
+                
 
         </div>
     </div>
