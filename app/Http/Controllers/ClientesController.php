@@ -125,7 +125,7 @@ class ClientesController extends Controller
             'direccion' => $request->direccion,
         ]);
     
-        return redirect()->route('clientes.update')->with('success', 'Cliente actualizado exitosamente.');
+        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
     
 
@@ -134,9 +134,9 @@ class ClientesController extends Controller
      */
     public function destroy(Clientes $cliente)
     {
+        $user = User::find($cliente->user_id);
+        $user->delete();
         $cliente->delete();
-
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
-
     }
 }

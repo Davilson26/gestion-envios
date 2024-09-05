@@ -45,11 +45,12 @@
                             <td class="text-center">{{ $cliente->cedula }}</td>
                             <td class="text-center">{{ $cliente->nombres }}</td>
                             <td class="text-center">{{ $cliente->apellidos }}</td>
-                            <td class="text-center">{{ $cliente->user->email }}</td>
+                            <td class="text-center">{{ $cliente->user->email ?? NULL}}</td>
                             <td class="text-center">{{ $cliente->telefono }}</td>
                             <td class="text-center">{{ $cliente->direccion }}</td>
                             <td class="text-center">
                                 <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('clientes.edit', $cliente) }}"></a>
+                                    
                                 <form action="{{ route('clientes.destroy', $cliente->id) }}" class="form-delete" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -62,16 +63,8 @@
                         
                         @endforeach
                     </tbody>
-                     <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
-                                 @csrf
-                                 @method('PUT')
-
-                                <!-- Campos del formulario aquí (nombres, apellidos, etc.) -->
-
-                                    <button type="submit" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">
-                                    Actualizar Cliente
-                                    </button>
-                                    </form>
+                                   
+                     </form>
                 </table>
                 
 
