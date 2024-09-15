@@ -23,6 +23,7 @@ return new class extends Migration
                     ->onDelete('no action')
                     ->onUpdate('no action');
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

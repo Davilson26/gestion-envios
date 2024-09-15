@@ -3,12 +3,13 @@
 namespace Tests\Unit;
 
 use App\Models\Roles;
-use Tests\TestCase;
+// use Tests\TestCase;
 use App\Models\Usuarios;
+use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 
-class UsuariosTest extends TestCase
+class UsuariosTest extends TestingTestCase
 {
     #[\PHPUnit\Framework\Attributes\Test]
 

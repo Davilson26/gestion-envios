@@ -22,12 +22,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 
 Route::resource('/clientes', ClientesController::class)->names('clientes')->middleware('auth');
-
-Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados.index')->middleware('auth');
-
 Route::get('/envios', [EnviosController::class, 'index'])->name('envios.index')->middleware('auth');
 
 Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth');
 
 Route::get('/roles', [UsuariosController::class, 'index'])->name('roles.index')->middleware('auth');
 
+route::resource('/empleados', EmpleadosController::class)->names('empleados')->middleware('auth');

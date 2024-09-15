@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -17,6 +19,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Insertar roles de prueba
+        DB::table('roles')->insert([
+            ['nombre' => 'Administrador', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Empleado', 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'Cliente', 'created_at' => now(), 'updated_at' => now()],
+        ]);
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 60);
@@ -26,8 +35,42 @@ return new class extends Migration
             $table->foreignId('rol_id')->constrained('roles')->onDelete('no action')->onUpdate('no action');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
+        DB::table('users')->insert([
+            [
+                'name' => 'Juan Admin',
+                'email' => 'juan.admin@example.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password123'), // Hashear el password
+                'rol_id' => 1, // Rol de Administrador
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'María Empleado',
+                'email' => 'maria.empleado@example.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password123'),
+                'rol_id' => 2, // Rol de Empleado
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'Carlos Cliente',
+                'email' => 'carlos.cliente@example.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password123'),
+                'rol_id' => 3, // Rol de Cliente
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ]);
+        
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

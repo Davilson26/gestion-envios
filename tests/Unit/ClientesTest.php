@@ -2,13 +2,14 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+// use Tests\TestCase;
 use App\Models\Clientes;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
 use Illuminate\Support\Facades\Hash;
 
-class ClientesControllerTest extends TestCase
+class ClientesControllerTest extends TestingTestCase
 {
     use RefreshDatabase;
     #[\PHPUnit\Framework\Attributes\Test]

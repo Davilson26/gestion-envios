@@ -2,11 +2,12 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+// use Tests\TestCase;
 use App\Models\Roles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
 
-class RolesTest extends TestCase
+class RolesTest extends TestingTestCase
 {
     use RefreshDatabase;
     #[\PHPUnit\Framework\Attributes\Test]
@@ -42,4 +43,5 @@ class RolesTest extends TestCase
         $this->expectException(\Illuminate\Database\QueryException::class);
         Roles::create(['nombre' => 'Duplicado']);
     }
+    
 }
