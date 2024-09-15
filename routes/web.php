@@ -22,7 +22,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 
 Route::resource('/clientes', ClientesController::class)->names('clientes')->middleware('auth');
-Route::get('/envios', [EnviosController::class, 'index'])->name('envios.index')->middleware('auth');
+Route::resource('/envios', EnviosController::class)->names('envios')->middleware('auth');
 
 Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth');
 

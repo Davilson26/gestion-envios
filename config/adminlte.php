@@ -338,6 +338,12 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'ADMINISTRAR ENVIOS'],
+        [
+            'text' => 'Envios',
+            'route' => 'envios.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         ['header' => 'ADMINISTRAR CLIENTES'],
         [
             'text' => 'Cliente',

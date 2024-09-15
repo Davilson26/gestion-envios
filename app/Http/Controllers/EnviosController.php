@@ -12,8 +12,8 @@ class EnviosController extends Controller
      */
     public function index()
     {
-      $data = Envios::all();
-      return view('clientes.index', compact('data'));
+      $envios = Envios::all();
+      return view('envios.index', compact('envios'));
     }
 
     /**
@@ -21,7 +21,7 @@ class EnviosController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
