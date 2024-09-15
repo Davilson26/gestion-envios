@@ -7,6 +7,7 @@ class ExampleTest extends TestCase
  {
  $this->assertTrue(true);
  }
+
  public function testSum()
  {
  $this->assertEquals(4, 2 + 2);

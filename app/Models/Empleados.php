@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Empleados extends Model
 {
     use HasFactory;
+    protected $fillable = ['cedula', 'nombres', 'apellidos', 'cargo', 'user_id'];
+    
 
     // Relación con User
     public function user()
