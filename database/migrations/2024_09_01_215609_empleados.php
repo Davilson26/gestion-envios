@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('nombres', 45);
             $table->string('apellidos', 45);
             $table->string('cargo', 45);
-            $table->integer('estado');
             $table->foreignId('user_id')
                     ->constrained('users')
                     ->onDelete('no action')
