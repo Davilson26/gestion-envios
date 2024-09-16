@@ -3,16 +3,16 @@
 @section('title', 'Envios')
 
 @section('content_header')
-    <h1>Sends</h1>
+    <h1>envios</h1>
 @stop
 
 @section('content')
 
     <div class="card">
-        <div class="card-header">
-            Lista de Envios
+        <div class="card-header flex justify-between items-center">
+            <h1 class="text-xl font-bold">Lista de Envios</h1>
             <div class="mb-4">
-                <a href="{{ route('envios.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">CREAR NUEVO CLIENTE</a>
+                <a href="{{ route('envios.create') }}"class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">CREAR NUEVO ENVIO</a>
             </div>
 
         </div>

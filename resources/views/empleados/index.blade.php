@@ -12,7 +12,7 @@
         <div class="card-header flex justify-between items-center">
             <h1 class="text-xl font-bold">Lista de Envios</h1>
             <div>
-                <a href="{{ route('empleados.create') }}" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">CREAR NUEVO CLIENTE</a>
+                <a href="{{ route('empleados.create') }}" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">CREAR NUEVO EMPLEADO</a>
             
             </div>
         </div>

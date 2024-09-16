@@ -18,9 +18,9 @@ return new class extends Migration
             $table->longText('descripcion');
             $table->string('codigo_envio', 45)->nullable();
             $table->integer('estado');
-            $table->foreignId('empleados_idempleados')->constrained('empleados')->onDelete('no action')->onUpdate('no action');
-            $table->foreignId('clientes_idremitente')->constrained('clientes')->onDelete('no action')->onUpdate('no action');
-            $table->foreignId('clientes_iddestinatario')->constrained('clientes')->onDelete('no action')->onUpdate('no action');
+            $table->foreignId('empleados_idempleados')->default(1)->constrained('empleados');
+            $table->foreignId('clientes_idremitente')->default(12)->constrained('empleados');
+            $table->foreignId('clientes_iddestinatario')->default(112)->constrained('empleados');
             $table->timestamps();
         });
     }
