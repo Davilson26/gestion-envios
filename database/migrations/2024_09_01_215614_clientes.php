@@ -49,18 +49,7 @@ return new class extends Migration
                 'user_id' => 2, // Asegúrate de que exista un usuario con ID 2
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
-            [
-                'cedula' => '456789123',
-                'nombres' => 'Carlos',
-                'apellidos' => 'Sánchez',
-                'telefono' => '555-6789',
-                'estado' => 1,
-                'direccion' => 'Plaza Mayor 100',
-                'user_id' => 3, // Asegúrate de que exista un usuario con ID 3
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
+            ]
         ]);
     }
 

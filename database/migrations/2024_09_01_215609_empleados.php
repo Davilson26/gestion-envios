@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +25,19 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // Insertar datos de prueba en la tabla empleado
+        DB::table('empleados')->insert([
+            [
+                'cedula' => '54321',
+                'nombres' => 'Carlos',
+                'apellidos' => 'Sánchez',
+                'cargo' => 'empleado',
+                'user_id' => 3, // Asegúrate de que exista un usuario con ID 3
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ]);
 
     }
 

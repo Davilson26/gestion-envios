@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('destino', 45);
             $table->longText('descripcion');
             $table->string('codigo_envio', 45)->nullable();
-            $table->integer('estado');
-            $table->foreignId('empleados_idempleados')->default(1)->constrained('empleados');
-            $table->foreignId('clientes_idremitente')->default(12)->constrained('empleados');
-            $table->foreignId('clientes_iddestinatario')->default(112)->constrained('empleados');
+            $table->integer('estado')->default(1);
+            $table->foreignId('empleados_idempleados')->default()->constrained('empleados');
+            $table->foreignId('clientes_idremitente')->default()->constrained('clientes');
+            $table->foreignId('clientes_iddestinatario')->default()->constrained('clientes');
             $table->timestamps();
         });
     }
