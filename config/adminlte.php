@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Servientraga',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Servientraga </b>SAS',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -363,12 +363,12 @@ return [
             'icon' => 'fas fa-fw fa-users',
        //     'can' => 'admin.usuarios.index'
         ],
-        [
-            'text' => 'Roles',
-            'route'  => 'roles.index',
-            'icon' => 'fas fa-fw fa-users-cog',
-      //      'can' => 'admin.roles.index'
-        ],
+    //     [
+    //         'text' => 'Roles',
+    //         'route'  => 'roles.index',
+    //         'icon' => 'fas fa-fw fa-users-cog',
+    //   //      'can' => 'admin.roles.index'
+    //     ],
     ],
 
     /*

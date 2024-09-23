@@ -112,11 +112,11 @@
                             </div>
 
                             <button type="submit" class="btn adorable-btn btn-dark float-right">Generar envío</button>
+
                         </div>
                     </div>
                 </div>
             </div>
-        
         </div>
     </form>
 </div>

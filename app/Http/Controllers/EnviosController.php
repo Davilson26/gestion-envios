@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Clientes;
+use App\Models\Empleados;
 use App\Models\Envios;
 use App\Models\EnviosDetalles;
 use Illuminate\Http\Request;
@@ -33,6 +35,7 @@ class EnviosController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validación de los datos de entrada
         // $request->validate([
         //     'origen' => 'required|string|max:45',
@@ -50,22 +53,27 @@ class EnviosController extends Controller
         // ]);
         $data = $request->all();
         
+        $idremitente = Clientes::where('cedula',$request->idremitente)->first();
+
+        $iddestinatario = Clientes::where('cedula',$request->iddestinatario)->first();
+
+        $idempleado = Empleados::where('user_id', Auth::user()->id)->first();
+        
+        //ayudame a sacar el timestamp unico para el envío
+        $codigo_envio = date('YmdHis');
+
+        // dd($idempleado);
         // Creación del nuevo envío
         $envio = Envios::create([
             'origen' => $request->origen,
             'destino' => $request->destino,
             'descripcion' => $request->descripcion,
-            'codigo_envio' => $request->codigo_envio,
-            'estado' => $request->estado,
-            'empleados_idempleados' => $request->empleados_idempleados,
-            
-            // Si tienes relaciones de clientes o empleados, agrega aquí las claves foráneas
-            // 'empleados_idempleados' => $request->empleados_idempleados,
-            // 'clientes_idremitente' => $request->clientes_idremitente,
-            // 'clientes_iddestinatario' => $request->clientes_iddestinatario,
+            'codigo_envio' => $codigo_envio,
+            'empleados_idempleados' => $idempleado->id,
+            'clientes_idremitente' => $idremitente->id,
+            'clientes_iddestinatario' => $iddestinatario->id
         ]);
        
-
         // Iterar sobre los detalles del envío y guardarlos
         if ($request->has('detalles')) {
             foreach ($request->detalles as $detalle) {

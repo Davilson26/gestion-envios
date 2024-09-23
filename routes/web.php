@@ -24,7 +24,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::resource('/clientes', ClientesController::class)->names('clientes')->middleware('auth');
 Route::resource('/envios', EnviosController::class)->names('envios')->middleware('auth');
 
-Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth');
+Route::resource('/usuarios', UsuariosController::class)->names('usuarios')->middleware('auth');
 
 Route::get('/roles', [UsuariosController::class, 'index'])->name('roles.index')->middleware('auth');
 

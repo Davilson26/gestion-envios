@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -11,7 +14,8 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        $users = Usuarios::select('name', 'email','id')->get();
+        return view('usuarios.index', compact('users'));
     }
 
     /**
@@ -41,24 +45,32 @@ class UsuariosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Usuarios $usuario)
     {
-        //
+        $roles = Roles::all();
+        return view('usuarios.edit', compact('usuario', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Usuarios $usuario)
     {
-        //
+        $data = $request->all();
+
+        $usuario->update([
+            'rol_id' => $data['rol_id'],
+        ]);
+
+        return redirect()->route('usuarios.index', $usuario)->with('info', 'Se asignó el rol correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Usuarios $usuario)
     {
-        //
+        $usuario->delete();
+        return redirect()->route('usuarios.index', $usuario)->with('info', 'Se eliminó el usuario correctamente');
     }
 }
