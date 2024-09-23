@@ -23,6 +23,147 @@
 @section('auth_header', __('Ingresa tus credenciales de acceso'))
 
 @section('auth_body')
+@section('adminlte_js')
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const loginBox = document.querySelector('.login-box');
+    loginBox.classList.add('shake');
+    setTimeout(() => {
+        loginBox.classList.remove('shake');
+    }, 500);
+});
+
+// Efecto de enfoque en los campos de entrada
+const inputFields = document.querySelectorAll('.form-control');
+inputFields.forEach(field => {
+    field.addEventListener('focus', function() {
+        this.parentNode.classList.add('input-group-focus');
+    });
+    field.addEventListener('blur', function() {
+        this.parentNode.classList.remove('input-group-focus');
+    });
+});
+
+// Mostrar/ocultar contraseña
+const passwordField = document.querySelector('input[name="password"]');
+const togglePassword = document.createElement('span');
+togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+togglePassword.classList.add('password-toggle');
+passwordField.parentNode.appendChild(togglePassword);
+
+togglePassword.addEventListener('click', function() {
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+});
+
+// Animación de carga al enviar el formulario
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const submitButton = this.querySelector('button[type="submit"]');
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ingresando...';
+    submitButton.disabled = true;
+});
+</script>
+@stop
+
+@section('adminlte_css')
+<style>
+body, .login-page {
+    background: linear-gradient(5deg, #000000, #1a0000);
+}
+
+.login-box {
+    background-color: rgba(255, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            max-width: 500px;
+            width: 100%;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 50px rgba(255, 0, 0, 0.4);
+}
+
+.login-logo a {
+    color: #ff0000;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.input-group .form-control {
+    border: none;
+    border-bottom: 2px solid #ff0000;
+    background-color: rgba(225, 225, 225, 0.5);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-bottom-color: #ff6666;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.input-group-focus .input-group-text {
+    color: #ff6666;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #ff0000;
+}
+
+.btn-block {
+    width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #ff0000;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+}
+
+.btn-block:hover, .btn-block:focus {
+    background: linear-gradient(45deg, #cc0000, #990000);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.auth-links a {
+    color: #ff6666;
+    transition: all 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: #ff0000;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ff0000;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+</style>
+@stop
     <form action="{{ $login_url }}" method="post">
         @csrf
 
