@@ -3,7 +3,7 @@
 @section('title', 'Envios')
 
 @section('content_header')
-    <h1>envios</h1>
+    <h1>Envíos</h1>
 @stop
 
 @section('content')
@@ -37,7 +37,7 @@
             <th class="text-center">Acciones</th>
         </tr>
     </thead>
-    
+
     <tbody>
         @foreach ($envios as $envio)
         <tr>

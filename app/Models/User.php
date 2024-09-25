@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    public function roles()
+    public function role()
     {
         return $this->belongsTo(Roles::class, 'rol_id');
     }
@@ -69,5 +69,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Empleados::class, 'user_id');
     }
-
+    public function hasRole(array $roles)
+    {
+        return in_array($this->rol_id, $roles);
+    }
 }

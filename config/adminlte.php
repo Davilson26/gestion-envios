@@ -324,44 +324,54 @@ return [
         ],
         [
             'text' => 'Mis envios',
-            'route' => 'envios.index',
+            'route' => 'envios.sends',
             'icon' => 'fas fa-fw fa-paper-plane',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
         ],
         ['header' => 'ADMINISTRAR ENVIOS'],
         [
             'text' => 'Envios',
             'route' => 'envios.index',
             'icon' => 'fas fa-fw fa-user',
+            'can' => ['es-empleado', 'es-admin']
         ],
-        ['header' => 'ADMINISTRAR CLIENTES'],
+        ['header' => 'ADMINISTRAR CLIENTES', 'can' => ['es-empleado', 'es-admin']],
         [
             'text' => 'Cliente',
             'route' => 'clientes.index',
             'icon' => 'fas fa-fw fa-user',
+            'can' => ['es-empleado', 'es-admin']
         ],
-        ['header' => 'ADMINISTRAR EMPLEADOS'],
+        ['header' => 'ADMINISTRAR EMPLEADOS', 'can' => ['es-admin'],],
         [
             'text' => 'Empleados',
             'route' => 'empleados.index',
             'icon' => 'fas fa-fw fa-user',
+            'can' => ['es-admin'],
+
         ],
-        ['header' => 'ADMINISTRATIVO'],
+        ['header' => 'ADMINISTRATIVO', 'can' => ['es-admin']],
         [
             'text' => 'Usuarios',
             'route'  => 'usuarios.index',
             'icon' => 'fas fa-fw fa-users',
-       //     'can' => 'admin.usuarios.index'
+            'can' => ['es-admin'],
+        ],
+
+        [
+            'text' => 'CONFIGURAR PERFIL',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Perfil',
+                    'url' => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+                [
+                    'text' => 'Cambiar Contraseña',
+                    'url' => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-lock',
+                ],
+            ],
         ],
     //     [
     //         'text' => 'Roles',

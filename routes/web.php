@@ -16,16 +16,15 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-// Route::group(['middleware' => 'checkRole:clientes'], function () {
-// Route::get('/envios', [EnviosController::class, 'index'])->name('envios.index');
-// });
+Route::middleware(['roles:1,2']) // Suponiendo que 1 es Administrador y 2 es Empleado
+    ->group(function () {
+        Route::get('/envios/mis-envios', [EnviosController::class, 'sends'])->name('envios.sends')->middleware('auth');
+        Route::resource('/envios', EnviosController::class)->names('envios')->middleware('auth');
 
+        Route::resource('/clientes', ClientesController::class)->names('clientes')->middleware('auth');
+});
 
-Route::resource('/clientes', ClientesController::class)->names('clientes')->middleware('auth');
-Route::resource('/envios', EnviosController::class)->names('envios')->middleware('auth');
-
-Route::resource('/usuarios', UsuariosController::class)->names('usuarios')->middleware('auth');
-
-Route::get('/roles', [UsuariosController::class, 'index'])->name('roles.index')->middleware('auth');
-
-route::resource('/empleados', EmpleadosController::class)->names('empleados')->middleware('auth');
+Route::middleware(['roles:1'])->group(function () {
+    Route::resource('/usuarios', UsuariosController::class)->names('usuarios')->middleware('auth');
+    route::resource('/empleados', EmpleadosController::class)->names('empleados')->middleware('auth');
+});

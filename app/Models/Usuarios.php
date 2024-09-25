@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Usuarios extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,7 @@ class Usuarios extends Model
         'password',
         'rol_id',
     ];
-    
+
      /**
      * The attributes that should be hidden for serialization.
      *

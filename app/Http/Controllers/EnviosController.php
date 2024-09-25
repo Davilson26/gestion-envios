@@ -22,6 +22,14 @@ class EnviosController extends Controller
         return view('envios.index', compact('envios'));
     }
 
+    public function sends()
+    {
+        // Obtener todos los envíos con sus detalles
+        $envios = Envios::with('enviosDetalles')->where('clientes_idremitente', Auth::user()->id)->get();
+
+        return view('envios.sends', compact('envios'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -52,13 +60,13 @@ class EnviosController extends Controller
         //     'detalles.*.valor_total' => 'required|numeric',
         // ]);
         $data = $request->all();
-        
+
         $idremitente = Clientes::where('cedula',$request->idremitente)->first();
 
         $iddestinatario = Clientes::where('cedula',$request->iddestinatario)->first();
 
         $idempleado = Empleados::where('user_id', Auth::user()->id)->first();
-        
+
         //ayudame a sacar el timestamp unico para el envío
         $codigo_envio = date('YmdHis');
 
@@ -73,7 +81,7 @@ class EnviosController extends Controller
             'clientes_idremitente' => $idremitente->id,
             'clientes_iddestinatario' => $iddestinatario->id
         ]);
-       
+
         // Iterar sobre los detalles del envío y guardarlos
         if ($request->has('detalles')) {
             foreach ($request->detalles as $detalle) {
@@ -184,6 +192,6 @@ class EnviosController extends Controller
         $envio->delete();
 
         return redirect()->route('envios.index')->with('success', 'Envío eliminado con éxito');
-   
+
     }
 }
