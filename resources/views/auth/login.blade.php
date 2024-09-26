@@ -2,7 +2,7 @@
 
 @section('adminlte_css_pre')
     <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-@stop
+
 
 @php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
 @php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
@@ -18,7 +18,7 @@
     @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
 @endif
 
-@section('title', 'Iniciar Sesión')
+@section('title', 'Iniciar Sesión_')
 
 @section('auth_header', __('Ingresa tus credenciales de acceso'))
 
@@ -32,6 +32,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         loginBox.classList.remove('shake');
     }, 500);
 });
+
 
 // Efecto de enfoque en los campos de entrada
 const inputFields = document.querySelectorAll('.form-control');
@@ -55,6 +56,7 @@ togglePassword.addEventListener('click', function() {
     const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordField.setAttribute('type', type);
     this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    
 });
 
 // Animación de carga al enviar el formulario
@@ -76,27 +78,31 @@ body, .login-page {
     background-color: rgba(255, 0, 0, 0.1);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 0 20px rgba(, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
             transition: all 0.3s ease;
             max-width: 500px;
             width: 100%;
+            
 }
+
 
 .login-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 30px 50px rgba(255, 0, 0, 0.4);
 }
 
+
+
 .login-logo a {
     color: #ff0000;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.input-group .form-control {
+ .input-group .form-control {
     border: none;
     border-bottom: 2px solid #ff0000;
     background-color: rgba(225, 225, 225, 0.5);
-    color: #fff;
+    color: #ff6666; /* Cambiar el color del texto a negro */
     transition: all 0.3s ease;
 }
 
@@ -104,6 +110,7 @@ body, .login-page {
     box-shadow: none;
     border-bottom-color: #ff6666;
     background-color: rgba(255, 255, 255, 0.2);
+    color: #ff6666; /* Mantener el texto negro al hacer focus */
 }
 
 .input-group-focus .input-group-text {
@@ -118,20 +125,21 @@ body, .login-page {
 
 .btn-block {
     width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #ff0000;
-            color: #fff;
-            font-size: 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+    padding: 12px 20px;
+    border: none;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 30px; /* Aumenta el redondeado */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); /* Agrega una sombra suave */
 }
 
 .btn-block:hover, .btn-block:focus {
     background: linear-gradient(45deg, #cc0000, #990000);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4); /* Sombra más profunda al pasar el mouse */
 }
 
 .auth-links a {
@@ -150,8 +158,19 @@ body, .login-page {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #ff0000;
+    color: #000000;
+    
 }
+.auth-footer a {
+    color: #ff0000; /* Cambia el color del enlace a rojo */
+    transition: all 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: #cc0000; /* Color más oscuro al pasar el mouse */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Agrega un efecto de sombra al pasar el mouse */
+}
+
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
@@ -162,6 +181,7 @@ body, .login-page {
 .shake {
     animation: shake 0.5s;
 }
+
 </style>
 @stop
     <form action="{{ $login_url }}" method="post">
@@ -216,7 +236,7 @@ body, .login-page {
             </div>
 
             <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                <button type=submit class="btn btn-block">
                     <span class="fas fa-sign-in-alt"></span>
                     {{ __('Ingresar') }}
                 </button>
@@ -227,21 +247,24 @@ body, .login-page {
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
-    @if($password_reset_url)
-        <p class="my-0">
-            <a href="{{ $password_reset_url }}">
-                {{ __('Olvidé mi contraseña') }}
-            </a>
-        </p>
-    @endif
+    <div class="auth-footer">
+        {{-- Password reset link --}}
+        @if($password_reset_url)
+            <p class="my-0">
+                <a href="{{ $password_reset_url }}">
+                    {{ __('Olvidé mi contraseña') }}
+                </a>
+            </p>
+        @endif
 
-    {{-- Register link --}}
-    @if($register_url)
-        <p class="my-0">
-            <a href="{{ $register_url }}">
-                {{ __('Registrarme!') }}
-            </a>
-        </p>
-    @endif
+        {{-- Register link --}}
+        @if($register_url)
+            <p class="my-0">
+                <a href="{{ $register_url }}">
+                    {{ __('Registrarme!') }}
+                </a>
+            </p>
+        @endif
+    </div>
 @stop
+

@@ -29,7 +29,7 @@
         </div>
 
         {{-- Lockscreen user name --}}
-        <div class="lockscreen-name">
+        <div class="lockscreen-name" style="color: #ff0000;"> <!-- Cambiar el color a rojo -->
             {{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}
         </div>
 
@@ -51,7 +51,7 @@
                            placeholder="{{ __('adminlte::adminlte.password') }}" required autofocus>
 
                     <div class="input-group-append">
-                        <button type="submit" class="btn">
+                        <button type="submit" class="btn btn-danger" style="border-radius: 20px;">
                             <i class="fas fa-arrow-right text-muted"></i>
                         </button>
                     </div>
@@ -68,13 +68,13 @@
         @enderror
 
         {{-- Help block --}}
-        <div class="help-block text-center">
+        <div class="help-block text-center" style="color: #ff0000;"> <!-- Cambiar el color a rojo -->
             {{ __('adminlte::adminlte.confirm_password_message') }}
         </div>
 
         {{-- Additional links --}}
         <div class="text-center">
-            <a href="{{ $password_reset_url }}">
+            <a href="{{ $password_reset_url }}" style="color: #ff0000;"> <!-- Cambiar el color a rojo -->
                 {{ __('adminlte::adminlte.i_forgot_my_password') }}
             </a>
         </div>
@@ -85,4 +85,43 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+@stop
+
+@section('adminlte_css')
+<style>
+body, .lockscreen {
+    background: linear-gradient(5deg, #000000, #1a0000);
+}
+
+.lockscreen-wrapper {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.input-group .form-control {
+    border: none;
+    border-bottom: 2px solid #ff0000;
+    background-color: rgba(225, 225, 225, 0.5);
+    color: #000 !important; /* Cambiar a negro con !important */
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-bottom-color: #ff6666;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #ff0000;
+}
+
+.lockscreen-subitem.text-center {
+    color: #ff0000; /* Cambiar el color del texto a rojo */
+}
+</style>
 @stop

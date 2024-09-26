@@ -40,7 +40,7 @@
         </div>
 
         {{-- Send reset link button --}}
-        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+        <button type="submit" class="btn btn-block btn-danger" style="border-radius: 20px;">
             <span class="fas fa-share-square"></span>
             {{ __('adminlte::adminlte.send_password_reset_link') }}
         </button>
@@ -48,3 +48,47 @@
     </form>
 
 @stop
+
+@section('adminlte_css')
+<style>
+body, .login-page {
+    background: linear-gradient(5deg, #000000, #1a0000);
+}
+
+.login-box {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    max-width: 500px;
+    width: 100%;
+}
+
+.input-group .form-control {
+    border: none;
+    border-bottom: 2px solid #ff0000;
+    background-color: rgba(225, 225, 225, 0.5);
+    color: #000 !important; /* Cambiar a negro con !important */
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-bottom-color: #ff6666;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #ff0000;
+}
+
+.alert-success {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff0000; /* Cambiar color del texto a rojo */
+}
+</style>
+@stop
+    
