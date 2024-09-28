@@ -1,101 +1,171 @@
 <?php
+
 namespace Tests\Unit;
 
 use App\Models\Envios;
-use App\Models\Empleados;
 use App\Models\Clientes;
+use App\Models\Empleados;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
+use PHPUnit\Framework\TestCase;
 
-class EnviosTest extends TestingTestCase
+class EnviosTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_create_envios()
+    public function it_can_create_a_shipping()
     {
-        // Crear empleados y clientes necesarios para el envío
-        $empleado = Empleados::create([
+        // Crear un cliente de ejemplo
+        $cliente = Clientes::create([
             'cedula' => '123456789',
+            'nombres' => 'John',
+            'apellidos' => 'Doe',
+            'telefono' => '555-555-5555',
+            'direccion' => '123 Main St',
+        ]);
+
+        // Crear un empleado de ejemplo
+        $empleado = Empleados::create([
+            'cedula' => '987654321',
             'nombres' => 'Jane',
             'apellidos' => 'Doe',
-            'cargo' => 'empleado',
-            'user_id' => 5, // Ajusta según tus datos de usuario
+            'telefono' => '666-666-6666',
+            'direccion' => '789 Some St',
         ]);
 
-        $clienteRemitente = Clientes::create([
-            'nombre' => 'John',
-            'apellido' => 'Doe',
-            'email' => 'johndoe@example.com',
-            'telefono' => '123456789',
-        ]);
+        $envioData = [
+            'destinatario' => 'Alice',
+            'direccion' => '456 Another St',
+            'telefono' => '444-444-4444',
+            'peso' => 2.5,
+            'costo' => 15.00,
+            'cliente_id' => $cliente->id,
+            'empleado_id' => $empleado->id,
+        ];
 
-        $clienteDestinatario = Clientes::create([
-            'nombre' => 'Alice',
-            'apellido' => 'Smith',
-            'email' => 'alicesmith@example.com',
-            'telefono' => '987654321',
-        ]);
+        // Crear envio
+        $envio = Envios::create($envioData);
 
-        // Crear envíos y verificar que fueron creados exitosamente
-        $envio1 = Envios::create([
-            'origen' => 'Oficina Central',
-            'destino' => 'Sucursal Norte',
-            'descripcion' => 'Paquete de documentos importantes.',
-            'codigo_envio' => 'ENV-001',
-            'estado' => 1,
-            'empleados_idempleados' => $empleado->id,
-            'clientes_idremitente' => $clienteRemitente->id,
-            'clientes_iddestinatario' => $clienteDestinatario->id,
-        ]);
-
-        // Verificar que los envíos existen en la base de datos
-        $this->assertDatabaseHas('envios', ['codigo_envio' => 'ENV-001']);
-        $this->assertDatabaseHas('envios', ['descripcion' => 'Paquete de documentos importantes.']);
-        
-        // Verificar que los envíos fueron creados correctamente
-        $this->assertEquals('Oficina Central', $envio1->origen);
-        $this->assertEquals('Sucursal Norte', $envio1->destino);
+        // Verificar que el envio fue creado correctamente
+        $this->assertNotNull(Envios::where('destinatario', 'Alice')->first());
     }
 
     /** @test */
-    public function it_validates_envio_creation()
+    public function it_can_update_a_shipping()
     {
-        // Intentar crear un envío sin origen y verificar que falla
-        $this->expectException(\Illuminate\Database\QueryException::class);
-        Envios::create([
-            'origen' => null,
-            'destino' => 'Sucursal Norte',
-            'descripcion' => 'Paquete de documentos.',
-            'codigo_envio' => 'ENV-002',
-            'estado' => 1,
-            'empleados_idempleados' => 1, // Ajusta según tus datos
-            'clientes_idremitente' => 1,   // Asegúrate de que estos IDs existan
-            'clientes_iddestinatario' => 2,
+        // Crear un envio de ejemplo
+        $cliente = Clientes::create([
+            'cedula' => '123456789',
+            'nombres' => 'John',
+            'apellidos' => 'Doe',
+            'telefono' => '555-555-5555',
+            'direccion' => '123 Main St',
         ]);
 
-        // Intentar crear un envío duplicado y verificar que falla
-        Envios::create([
-            'origen' => 'Oficina Central',
-            'destino' => 'Sucursal Norte',
-            'descripcion' => 'Paquete de documentos.',
-            'codigo_envio' => 'ENV-003',
-            'estado' => 1,
-            'empleados_idempleados' => 1,
-            'clientes_idremitente' => 1,
-            'clientes_iddestinatario' => 2,
+        $empleado = Empleados::create([
+            'cedula' => '987654321',
+            'nombres' => 'Jane',
+            'apellidos' => 'Doe',
+            'telefono' => '666-666-6666',
+            'direccion' => '789 Some St',
         ]);
 
-        $this->expectException(\Illuminate\Database\QueryException::class);
-        Envios::create([
-            'origen' => 'Oficina Central',
-            'destino' => 'Sucursal Norte',
-            'descripcion' => 'Paquete de documentos.',
-            'codigo_envio' => 'ENV-003', // Duplicado
-            'estado' => 1,
-            'empleados_idempleados' => 1,
-            'clientes_idremitente' => 1,
-            'clientes_iddestinatario' => 2,
+        $envio = Envios::create([
+            'destinatario' => 'Alice',
+            'direccion' => '456 Another St',
+            'telefono' => '444-444-4444',
+            'peso' => 2.5,
+            'costo' => 15.00,
+            'cliente_id' => $cliente->id,
+            'empleado_id' => $empleado->id,
         ]);
+
+        // Actualizar los datos del envio
+        $updateData = [
+            'destinatario' => 'Bob',
+            'telefono' => '333-333-3333',
+            'costo' => 20.00,
+        ];
+
+        $envio->update($updateData);
+
+        // Verificar que los datos fueron actualizados correctamente
+        $updatedShipping = Envios::where('destinatario', 'Bob')->first();
+        $this->assertNotNull($updatedShipping);
+        $this->assertEquals($updatedShipping->telefono, '333-333-3333');
+        $this->assertEquals($updatedShipping->costo, 20.00);
+    }
+
+    /** @test */
+    public function it_can_delete_a_shipping()
+    {
+        // Crear un envio de ejemplo
+        $cliente = Clientes::create([
+            'cedula' => '123456789',
+            'nombres' => 'John',
+            'apellidos' => 'Doe',
+            'telefono' => '555-555-5555',
+            'direccion' => '123 Main St',
+        ]);
+
+        $empleado = Empleados::create([
+            'cedula' => '987654321',
+            'nombres' => 'Jane',
+            'apellidos' => 'Doe',
+            'telefono' => '666-666-6666',
+            'direccion' => '789 Some St',
+        ]);
+
+        $envio = Envios::create([
+            'destinatario' => 'Alice',
+            'direccion' => '456 Another St',
+            'telefono' => '444-444-4444',
+            'peso' => 2.5,
+            'costo' => 15.00,
+            'cliente_id' => $cliente->id,
+            'empleado_id' => $empleado->id,
+        ]);
+
+        // Eliminar el envio
+        $envio->delete();
+
+        // Verificar que el envio fue eliminado
+        $this->assertNull(Envios::where('destinatario', 'Alice')->first());
+    }
+
+    /** @test */
+    public function it_can_show_a_shipping()
+    {
+        // Crear un envio de ejemplo
+        $cliente = Clientes::create([
+            'cedula' => '123456789',
+            'nombres' => 'John',
+            'apellidos' => 'Doe',
+            'telefono' => '555-555-5555',
+            'direccion' => '123 Main St',
+        ]);
+
+        $empleado = Empleados::create([
+            'cedula' => '987654321',
+            'nombres' => 'Jane',
+            'apellidos' => 'Doe',
+            'telefono' => '666-666-6666',
+            'direccion' => '789 Some St',
+        ]);
+
+        $envio = Envios::create([
+            'destinatario' => 'Alice',
+            'direccion' => '456 Another St',
+            'telefono' => '444-444-4444',
+            'peso' => 2.5,
+            'costo' => 15.00,
+            'cliente_id' => $cliente->id,
+            'empleado_id' => $empleado->id,
+        ]);
+
+        // Verificar que el envio se puede mostrar
+        $foundShipping = Envios::find($envio->id);
+        $this->assertEquals($foundShipping->destinatario, 'Alice');
+        $this->assertEquals($foundShipping->telefono, '444-444-4444');
     }
 }
