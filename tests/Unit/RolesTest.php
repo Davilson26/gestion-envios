@@ -16,18 +16,18 @@ class RolesTest extends TestingTestCase
     public function it_can_create_roles()
     {
         // Crear roles y verificar que fueron creados exitosamente
-        $roleAdmin = Roles::create(['nombre' => 'Administradores']);
-        $roleUser = Roles::create(['nombre' => 'Usuarios']);
+        $roleAdmin = Roles::create(['nombre' => 'Administrador']);
+        $rolEmp = Roles::create(['nombre' => 'Empleado']);
         $roleClient = Roles::create(['nombre' => 'Clientes']);
 
         // Verificar que los roles existen en la base de datos
-        $this->assertDatabaseHas('roles', ['nombre' => 'Administradores']);
-        $this->assertDatabaseHas('roles', ['nombre' => 'Usuarios']);
+        $this->assertDatabaseHas('roles', ['nombre' => 'Administrador']);
+        $this->assertDatabaseHas('roles', ['nombre' => 'Empleado']);
         $this->assertDatabaseHas('roles', ['nombre' => 'Clientes']);
         
         // Verificar que los roles fueron creados correctamente
-        $this->assertEquals('Administradores', $roleAdmin->nombre);
-        $this->assertEquals('Usuarios', $roleUser->nombre);
+        $this->assertEquals('Administrador', $roleAdmin->nombre);
+        $this->assertEquals('Empleado', $rolEmp->nombre);
         $this->assertEquals('Clientes', $roleClient->nombre);
     }
 
