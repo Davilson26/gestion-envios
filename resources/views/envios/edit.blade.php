@@ -25,7 +25,7 @@
                                 <label for="idremitente">Cédula Remitente</label>
                                 <input type="number" name="idremitente" id="idremitente" class="form-control adorable-input" value="{{ old('idremitente', $envio->idremitente) }}" step="0.01" required>
                             </div>
-                        </div> 
+                        </div>
 
                         <div class="col-6">
                             <div class="form-group">
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-3">
                                 <label for="ancho">Ancho</label>
-                                <input type="number" name="detalles[0][ancho]" id="ancho" class="form-control adorable-input" value="{{ old('detalles[0][ancho]', $envio->detalles[0]['ancho']) }}" step="0.01"> 
+                                <input type="number" name="detalles[0][ancho]" id="ancho" class="form-control adorable-input" value="{{ old('detalles[0][ancho]', $envio->detalles[0]['ancho']) }}" step="0.01">
                             </div>
 
                             <div class="col-3">
@@ -80,7 +80,7 @@
                             <div class="col-3">
                                 <label for="alto">Alto</label>
                                 <input type="number" name="detalles[0][alto]" id="alto" class="form-control adorable-input" value="{{ old('detalles[0][alto]', $envio->detalles[0]['alto']) }}" step="0.01">
-                            </div>                           
+                            </div>
                         </div>
 
                         <div class="form-group mt-3">

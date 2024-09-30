@@ -327,7 +327,7 @@ return [
             'route' => 'envios.sends',
             'icon' => 'fas fa-fw fa-paper-plane',
         ],
-        ['header' => 'ADMINISTRAR ENVIOS'],
+        ['header' => 'ADMINISTRAR ENVIOS', 'can' => ['es-empleado', 'es-admin']],
         [
             'text' => 'Envios',
             'route' => 'envios.index',

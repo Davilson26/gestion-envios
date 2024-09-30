@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clientes;
-use App\Models\Empleados;
 use App\Models\Envios;
+use App\Models\Empleados;
+use App\Models\Clientes;
 use App\Models\EnviosDetalles;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Mail\PostEnvios;
+use Mail;
 
 class EnviosController extends Controller
 {
@@ -100,6 +102,8 @@ class EnviosController extends Controller
                 ]);
             }
         }
+
+        Mail::to('davilsonexty@gmail.com')->send(new PostEnvios());
         return redirect()->route('envios.index')->with('success', 'Envío y detalles creados con éxito');
 
     }

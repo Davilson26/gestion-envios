@@ -3,21 +3,20 @@
 @section('title', 'Clientes')
 
 @section('content_header')
-    <h1>Clientes</h1>
+    <h1>Lista de clientes</h1>
 @stop
 
 @section('content')
 
     <div class="card">
         <div class="card-header flex justify-between items-center">
-            <h1 class="text-xl font-bold">Lista de Envios</h1>
             <div>
                 <a href="{{ route('clientes.create') }}" class="btn btn-sm btn-outline-dark px-4 py-2 rounded ml-4">CREAR NUEVO CLIENTE</a>
-            
+
             </div>
         </div>
         <div class="card-body">
-            
+
             @if (session('info'))
                 <div class="alert alert-success">
                     <strong>{{ session('info') }}</strong>
@@ -37,7 +36,7 @@
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         @foreach ($clientes as $cliente)
                         <tr>
@@ -50,23 +49,23 @@
                             <td class="text-center">{{ $cliente->direccion }}</td>
                             <td class="text-center">
                                 <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('clientes.edit', $cliente) }}"></a>
-                                    
+
                                 <form action="{{ route('clientes.destroy', $cliente->id) }}" class="form-delete" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
                                 </form>
-                               
+
 
                             </td>
                         </tr>
-                        
+
                         @endforeach
                     </tbody>
-                                   
+
                      </form>
                 </table>
-                
+
 
         </div>
     </div>
