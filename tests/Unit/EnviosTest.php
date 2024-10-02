@@ -29,9 +29,9 @@ class EnviosTest extends TestingTestCase
             'descripcion' => 'Descripción del envío',
             'codigo_envio' => 'C123',
             'estado' => 1,
-            'empleados_idempleados' => 1, // Asegúrate de que el empleado exista
-            'clientes_idremitente' => 1,   // Asegúrate de que el cliente exista
-            'clientes_iddestinatario' => 2, // Asegúrate de que el cliente exista
+            'empleados_idempleados' => 1, 
+            'clientes_idremitente' => 1,   
+            'clientes_iddestinatario' => 2, 
         ];
 
         // Crear el envío
