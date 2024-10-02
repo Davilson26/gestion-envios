@@ -1,19 +1,26 @@
 <?php
 
 namespace App\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Clientes extends Model
 {
-    use HasFactory, SoftDeletes;
-    protected $fillable = ['cedula', 'nombres', 'apellidos', 'telefono', 'direccion', 'user_id'];
-    
-    // Relación con User
-    public function user()
+    use HasFactory;
+
+    protected $fillable = ['cedula', 'nombres', 'apellidos', 'telefono', 'direccion'];
+
+    // Relación con envios
+    public function enviosRemitente()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(Envios::class, 'clientes_idremitente', 'id');
+    }
+
+    public function enviosDestinatario()
+    {
+        return $this->hasMany(Envios::class, 'clientes_iddestinatario', 'id');
     }
 }
+

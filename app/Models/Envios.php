@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Envios extends Model
 {
     use HasFactory;
+    protected $table = 'envios';
     protected $fillable = ['origen', 'destino', 'descripcion', 'codigo_envio', 'estado', 'empleados_idempleados', 'clientes_idremitente', 'clientes_iddestinatario'];
 
     
