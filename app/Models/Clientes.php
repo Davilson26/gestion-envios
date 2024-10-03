@@ -10,12 +10,18 @@ class Clientes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cedula', 'nombres', 'apellidos', 'telefono', 'direccion'];
-
+    protected $fillable = ['cedula', 'nombres', 'apellidos', 'telefono', 'direccion', 'user_id'];
+    
+    // Relación con User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
     // Relación con envios
     public function enviosRemitente()
     {
-        return $this->hasMany(Envios::class, 'clientes_idremitente', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function enviosDestinatario()

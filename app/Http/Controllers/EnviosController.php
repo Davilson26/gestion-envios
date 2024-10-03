@@ -9,7 +9,7 @@ use App\Models\EnviosDetalles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Mail\PostEnvios;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class EnviosController extends Controller
 {
@@ -123,7 +123,7 @@ class EnviosController extends Controller
     {
         // Buscar el envío por su id
         $envio = Envios::with('enviosDetalles')->findOrFail($id);
-
+        dd($envio);
         return view('envios.edit', compact('envio'));
     }
     /**

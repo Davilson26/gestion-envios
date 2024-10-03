@@ -30,10 +30,10 @@ return new class extends Migration
         DB::table('empleados')->insert([
             [
                 'cedula' => '54321',
-                'nombres' => 'Carlos',
-                'apellidos' => 'Sánchez',
+                'nombres' => 'María',
+                'apellidos' => 'Empleado',
                 'cargo' => 'empleado',
-                'user_id' => 3, // Asegúrate de que exista un usuario con ID 3
+                'user_id' => 2, // Asegúrate de que exista un usuario con ID 2
                 'created_at' => now(),
                 'updated_at' => now()
             ],
