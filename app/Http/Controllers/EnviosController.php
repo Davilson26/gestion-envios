@@ -25,13 +25,40 @@ class EnviosController extends Controller
     }
 
     public function sends()
-    {
-        // Obtener todos los envíos con sus detalles
-        $envios = Envios::with('enviosDetalles')->where('clientes_idremitente', Auth::user()->id)->get();
+{
+    // Verifica si el usuario es un cliente (role_id == 3)
+    if (auth()->Auth::user()->role_id == 3) {
+        // Obtener los envíos relacionados al cliente autenticado
+        $envios = Envios::with('enviosDetalles')
+            ->where('clientes_idremitente', auth()->Auth::user()->id)
+            ->orWhere('clientes_iddestinatario', auth()->Auth::user()->id)
+            ->get();
 
         return view('envios.sends', compact('envios'));
     }
 
+    // Si no es un cliente, redirige con un mensaje de error
+    return redirect()->back()->with('error', 'No tienes permisos para ver los envíos.');
+}
+public function misEnvios()
+{
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+
+    // Obtener el cliente asociado a este usuario
+    $cliente = $user->cliente; // Asumiendo que tienes una relación 'cliente' en el modelo User.
+
+    // Validar si el cliente existe
+    if (!$cliente) {
+        return redirect()->route('home')->with('error', 'No tienes permisos para ver esta página.');
+    }
+
+    // Obtener los envíos que están asociados a este cliente
+    $envios = Envios::where('clientes_idremitente', $cliente->id)->get();
+
+    // Pasar los envíos a la vista
+    return view('envios.mis-envios', compact('envios'));
+}
     /**
      * Show the form for creating a new resource.
      */
@@ -111,6 +138,7 @@ class EnviosController extends Controller
     /**
      * Display the specified resource.
      */
+    
     public function show(string $id)
     {
         //
@@ -185,6 +213,7 @@ class EnviosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(string $id)
     {
         $envio = Envios::findOrFail($id);

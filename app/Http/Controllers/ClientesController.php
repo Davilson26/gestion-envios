@@ -29,10 +29,28 @@ class ClientesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function verEnvios()
+    {
+        // Obtener el ID del usuario autenticado
+        $userId = auth()->id(); // Asegúrate de que esto esté correcto
+
+        // Obtener el cliente asociado al usuario
+        $cliente = Clientes::where('user_id', $userId)->first();
+
+        if ($cliente) {
+            // Obtener los envíos del cliente
+            $envios = $cliente->envios; // Usar la relación definida en el modelo Clientes
+            return view('clientes.envios', compact('envios'));
+        } else {
+            // Si no hay un cliente asociado al usuario
+            return redirect()->route('clientes.index')->with('error', 'No se encontraron envíos para este cliente.');
+        }
+    }
     public function create()
     {
         return view('clientes.create');
     }
+    
 
     /**
      * Store a newly created resource in storage.
