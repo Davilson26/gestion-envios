@@ -57,6 +57,7 @@
         setTimeout(function() {
             $("#alert").fadeOut();
         },2000);
+        
         $('#usuarios').DataTable({
             responsive:true,
             autoWidth:false,
@@ -75,22 +76,23 @@
         });
 
         $('.form-delete').on('submit', function(e){
-        e.preventDefault();
-        swal.fire({
-            title: '¿Estás seguro?',
-            text: "Este registro se eliminará!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '¡Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.submit();
-            }
+            e.preventDefault();
+            swal.fire({
+                title: '¿Estás seguro?',
+                text: "Este registro se eliminará!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
         });
-    });
-    } );
+
+        } );
 </script>
 @stop

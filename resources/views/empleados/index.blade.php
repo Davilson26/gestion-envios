@@ -48,15 +48,15 @@
                             <td class="text-center">{{ $empleado->cargo }}</td>
                             <td class="text-center">{{ $empleado->direccion }}</td>
                             <td class="text-center">
-                                <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('empleados.edit', $empleado) }}"></a>
+                                <div class="d-inline-flex align-items-center gap-3">
+                                    <a class="btn btn-outline-success btn-sm fas fa-edit mr-2" href="{{ route('empleados.edit', $empleado) }}"></a>
 
-                                <form action="{{ route('empleados.destroy', $empleado->id) }}" class="form-delete" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
-                                </form>
-
-
+                                    <form action="{{ route('empleados.destroy', $empleado->id) }}" class="form-delete" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 
@@ -78,23 +78,40 @@
 
 @section('js')
     <script>
-$(document).ready(function() {
-        $('#myTable').DataTable({
-            responsive:true,
-            autoWidth:false,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "zeroRecords": "No se encontraron registros",
-                "info": "Mostrando la página _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(Filtrado de _MAX_ registros totales)",
-                "search": "Buscar",
-                "paginate": {
-                    "next": "Siguiente",
-                    "previous": "Anterior"
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive:true,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron registros",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
                 }
-            }
+            });
+        } );
+
+        $('.form-delete').on('submit', function(e){
+            e.preventDefault();
+            swal.fire({
+                title: '¿Estás seguro?',
+                text: "Este registro se eliminará!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
         });
-    } );
     </script>
 @stop

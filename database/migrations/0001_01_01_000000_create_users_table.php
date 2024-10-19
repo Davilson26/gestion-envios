@@ -69,8 +69,18 @@ return new class extends Migration
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'name' => 'Andrea Cliente',
+                'email' => 'Andrea.cliente@example.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password123'),
+                'rol_id' => 3, // Rol de Cliente
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
-        
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

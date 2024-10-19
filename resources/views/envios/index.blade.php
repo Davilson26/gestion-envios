@@ -69,13 +69,16 @@
                             </ul>
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('envios.edit', $envio->id) }}"></a>
+                            <div class="d-inline-flex align-items-center gap-3">
+                                <a class="btn btn-outline-success btn-sm fas fa-edit" href="{{ route('envios.edit', $envio->id) }}"></a>
 
-                            <form action="{{ route('envios.destroy', $envio->id) }}" class="form-delete" method="POST" style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
-                            </form>
+                                <form action="{{ route('envios.destroy', $envio->id) }}" class="form-delete" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-outline-danger btn-sm fas fa-trash-alt"> </button>
+                                </form>
+                            </div>
+
                         </td>
                     </tr>
                     @endforeach
@@ -95,23 +98,23 @@
 
 @section('js')
     <script>
-$(document).ready(function() {
-        $('#myTable').DataTable({
-            responsive:true,
-            autoWidth:false,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "zeroRecords": "No se encontraron registros",
-                "info": "Mostrando la página _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(Filtrado de _MAX_ registros totales)",
-                "search": "Buscar",
-                "paginate": {
-                    "next": "Siguiente",
-                    "previous": "Anterior"
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive:true,
+                autoWidth:false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron registros",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
                 }
-            }
-        });
-    } );
+            });
+        } );
     </script>
 @stop

@@ -25,17 +25,17 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        
+
         // Insertar datos de prueba en la tabla clientes
         DB::table('clientes')->insert([
             [
                 'cedula' => '123456789',
-                'nombres' => 'Juan',
-                'apellidos' => 'Pérez',
+                'nombres' => 'Carlos',
+                'apellidos' => 'Sanchez',
                 'telefono' => '555-1234',
                 'estado' => 1,
                 'direccion' => 'Calle Falsa 123',
-                'user_id' => 1, // Asegúrate de que exista un usuario con ID 1
+                'user_id' => 3, // Asegúrate de que exista un usuario con ID 1
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -49,7 +49,18 @@ return new class extends Migration
                 'user_id' => 2, // Asegúrate de que exista un usuario con ID 2
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
+            ],
+            [
+                'cedula' => '54321',
+                'nombres' => 'Andrea',
+                'apellidos' => 'Soto',
+                'telefono' => '123-1234',
+                'estado' => 1,
+                'direccion' => 'Calle Falsa 123',
+                'user_id' => 4, // Asegúrate de que exista un usuario con ID 1
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 
