@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-              <table class="table  w-full responsive">
+              <table  id="myTable" class="table  w-full responsive">
                     <thead>
                         <tr>
                             <th class="text-center">Id</th>
@@ -78,6 +78,23 @@
 
 @section('js')
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+$(document).ready(function() {
+        $('#myTable').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encontraron registros",
+                "info": "Mostrando la página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                "search": "Buscar",
+                "paginate": {
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+    } );
     </script>
 @stop
