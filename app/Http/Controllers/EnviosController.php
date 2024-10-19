@@ -25,21 +25,23 @@ class EnviosController extends Controller
     }
 
     public function sends()
-{
-    // Verifica si el usuario es un cliente (role_id == 3)
-    if (auth()->Auth::user()->role_id == 3) {
-        // Obtener los envíos relacionados al cliente autenticado
-        $envios = Envios::with('enviosDetalles')
-            ->where('clientes_idremitente', auth()->Auth::user()->id)
-            ->orWhere('clientes_iddestinatario', auth()->Auth::user()->id)
-            ->get();
+    {
 
-        return view('envios.sends', compact('envios'));
+        $cliente = Auth::user();
+        // Verifica si el usuario es un cliente (rol_id == 3)
+        // if (Auth::user()->rol_id == 3) {
+            // Obtener los envíos relacionados al cliente autenticado
+            $envios = Envios::with('enviosDetalles')
+                ->where('clientes_idremitente', Auth::user()->id)
+                ->orWhere('clientes_iddestinatario', Auth::user()->id)
+                ->get();
+
+            return view('envios.sends', compact('envios'));
+        // }
+
+        // Si no es un cliente, redirige con un mensaje de error
+        // return redirect()->back()->with('error', 'No tienes permisos para ver los envíos.');
     }
-
-    // Si no es un cliente, redirige con un mensaje de error
-    return redirect()->back()->with('error', 'No tienes permisos para ver los envíos.');
-}
 public function misEnvios()
 {
     // Obtener el usuario autenticado
@@ -138,7 +140,7 @@ public function misEnvios()
     /**
      * Display the specified resource.
      */
-    
+
     public function show(string $id)
     {
         //
@@ -213,7 +215,7 @@ public function misEnvios()
     /**
      * Remove the specified resource from storage.
      */
-    
+
     public function destroy(string $id)
     {
         $envio = Envios::findOrFail($id);
