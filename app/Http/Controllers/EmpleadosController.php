@@ -14,7 +14,9 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-      $empleados = Empleados::with('user')->where('rol_id', 2)->get();
+      $empleados = Empleados::with('user')->whereHas('user', function ($query) {
+            $query->where('rol_id', 2);
+        })->get();
       return view('empleados.index', compact('empleados'));
     }
 

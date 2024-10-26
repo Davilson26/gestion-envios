@@ -22,7 +22,9 @@ class ClientesController extends Controller
      */
     public function index()
     {
-      $clientes = Clientes::with('user')->where('rol_id', 3)->get();
+        $clientes = Clientes::with('user')->whereHas('user', function ($query) {
+            $query->where('rol_id', 3);
+        })->get();
       return view('clientes.index', compact('clientes'));
     }
 
