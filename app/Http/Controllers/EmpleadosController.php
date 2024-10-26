@@ -14,7 +14,7 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-      $empleados = Empleados::with('user')->get();
+      $empleados = Empleados::with('user')->where('rol_id', 2)->get();
       return view('empleados.index', compact('empleados'));
     }
 
@@ -24,7 +24,7 @@ class EmpleadosController extends Controller
     public function create()
     {
         return view('empleados.create');
-        
+
     }
     public function store(Request $request)
     {
@@ -54,7 +54,7 @@ class EmpleadosController extends Controller
             'user_id' => $user->id,
             'rol_id' => 2
         ]);
-        
+
         return redirect()->route('empleados.index')->with('success', 'empleados creado exitosamente.');
     }
 
@@ -92,33 +92,33 @@ class EmpleadosController extends Controller
             'apellidos' => 'required|string|max:255',
             'correo' => 'required|string|email|max:255',
             'cargo' => 'required|string|max:255',
-           
+
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-    
+
         // Actualizar los datos del usuario asociado
         $user = User::find($empleado->user_id);
         $user->name = $request->nombres;
         $user->email = $request->correo;
-    
+
         // Solo actualizar la contraseña si se proporciona una nueva
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-    
+
         $user->save();
-    
+
         // Actualizar los datos del cliente
         $empleado->update([
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'cargo' => $request->cargo,
-           
-            
+
+
         ]);
-    
+
         return redirect()->route('empleados.index')->with('success', 'empleado actualizado exitosamente.');
-    
+
     }
 
     /**

@@ -22,7 +22,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-      $clientes = Clientes::with('user')->get();
+      $clientes = Clientes::with('user')->where('rol_id', 3)->get();
       return view('clientes.index', compact('clientes'));
     }
 
@@ -50,7 +50,7 @@ class ClientesController extends Controller
     {
         return view('clientes.create');
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -83,7 +83,7 @@ class ClientesController extends Controller
             'direccion' => $data['direccion'],
             'user_id' => $user->id,
         ]);
-        
+
         return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
     }
 
@@ -122,19 +122,19 @@ class ClientesController extends Controller
             'direccion' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-    
+
         // Actualizar los datos del usuario asociado
         $user = User::find($cliente->user_id);
         $user->name = $request->nombres;
         $user->email = $request->correo;
-    
+
         // Solo actualizar la contraseña si se proporciona una nueva
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-    
+
         $user->save();
-    
+
         // Actualizar los datos del cliente
         $cliente->update([
             'nombres' => $request->nombres,
@@ -142,10 +142,10 @@ class ClientesController extends Controller
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
         ]);
-    
+
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

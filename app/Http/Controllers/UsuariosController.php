@@ -14,7 +14,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $users = Usuarios::select('name', 'email','id')->get();
+        $users = Usuarios::select('name', 'email','id')->where('rol_id', 1)->get();
         return view('usuarios.index', compact('users'));
     }
 
